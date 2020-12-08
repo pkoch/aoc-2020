@@ -1,5 +1,5 @@
 % https://adventofcode.com/2020/day/1
-% swipl -g main -g halt main.pl
+% swipl -g main -g halt 1.pl
 use_module(library(readutil)).
 use_module(library(clpfd)).
 
