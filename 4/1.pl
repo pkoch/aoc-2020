@@ -1,10 +1,13 @@
 %
 
-my_split(Line, Out):- split_string(Line, ":", "", Out).
+split_segments(Line, [Key, Value]):-
+  split_string(Line, ":", "", [SKey, Value]),
+  atom_string(Key, SKey),
+true.
 
 string_entry_to_entry(SEntry, Entry):-
-  split_string(SEntry, "\n ", "\n ", Pairs),
-  maplist(my_split, Pairs, Entry),
+  split_string(SEntry, "\n ", "\n ", Segments),
+  maplist(split_segments, Segments, Entry),
 true.
 
 contents_to_string_entries(S, [S]):- \+ sub_string(S, _, _, _, "\n\n").
@@ -29,13 +32,13 @@ valid_passport(Entry):-
   list_to_ord_set(Keys, OKeys),
   ord_subtract([
     % Keep ordered
-    "byr",
-    "ecl",
-    "eyr",
-    "hcl",
-    "hgt",
-    "iyr",
-    "pid"
+    byr,
+    ecl,
+    eyr,
+    hcl,
+    hgt,
+    iyr,
+    pid
   ], OKeys, []),
 true.
 
